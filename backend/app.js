@@ -20,11 +20,11 @@ app.use(morgan('dev'));
 
 // Rutas base (por ahora vacías)
 app.get('/', (req, res) => {
-  res.send('🍽️ API RESTAURANTE MR QUEEN funcionando correctamente');
+  res.send('API RESTAURANTE MR QUEEN funcionando correctamente');
 });
 
 // Puerto
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor backend corriendo en el puerto ${PORT}`);
+  console.log(`Servidor backend corriendo en el puerto ${PORT}`);
 });
