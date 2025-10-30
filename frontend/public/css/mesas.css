@@ -1,0 +1,102 @@
+/* === Estilos específicos del módulo de mesas === */
+.mesas-module {
+  color: #f1f1f1;
+  font-family: 'Poppins', sans-serif;
+}
+
+.section-title {
+  color: #bb86fc; /* Morado brillante */
+  font-weight: 600;
+  border-bottom: 2px solid #bb86fc;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.card {
+  background-color: #1a1a1f !important;
+  border: 1px solid #2d2d35;
+  border-radius: 12px;
+}
+
+.sombra-suave {
+  box-shadow: 0 0 10px rgba(187, 134, 252, 0.1);
+}
+
+.campo-oscuro {
+  background-color: #2a2a32 !important;
+  color: #fff !important;
+  border: 1px solid #3b3b45 !important;
+}
+
+.campo-oscuro:focus {
+  border-color: #bb86fc !important;
+  box-shadow: 0 0 5px #bb86fc !important;
+  outline: none !important;
+}
+
+.campo-oscuro::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-crear {
+  background-color: #bb86fc !important;
+  color: #fff !important;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-crear:hover {
+  background-color: #9a6df2 !important;
+  transform: translateY(-1px);
+}
+
+.tabla-mesas {
+  width: 100%;
+  text-align: center;
+}
+
+.tabla-mesas th {
+  background-color: #2d2d35;
+  color: #bb86fc;
+  border-bottom: 2px solid #bb86fc;
+  text-align: center;
+}
+
+.tabla-mesas td {
+  background-color: #1e1e24;
+  color: #ddd;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.tabla-mesas tr:hover td {
+  background-color: #292932;
+}
+
+.tabla-mesas select {
+  background-color: #2a2a32;
+  color: #fff;
+  border: 1px solid #3b3b45;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.tabla-mesas select:focus {
+  border-color: #bb86fc;
+  outline: none;
+}
+
+.msg {
+  font-size: 0.9rem;
+}
+
+.msg.text-success {
+  color: #00ffaa !important;
+}
+
+.msg.text-danger {
+  color: #ff6b6b !important;
+}

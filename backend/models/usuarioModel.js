@@ -1,4 +1,3 @@
-// backend/models/usuarioModel.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -8,8 +7,8 @@ const usuarioSchema = new mongoose.Schema({
   contraseña: { type: String, required: true, minlength: 6 },
   rol: { 
     type: String, 
-    enum: ['Administrador', 'Mesero', 'Cocinero', 'Cajero', 'Recepcionista', 'Invitado'], 
-    default: 'Mesero' 
+    enum: ['Administrador', 'Mozo', 'Cocinero', 'Cajero'], 
+    default: 'Mozo' 
   },
   estado: { 
     type: String, 
