@@ -37,7 +37,6 @@ app.use(cors({
 // ======================
 // 🧱 Servir archivos del frontend
 // ======================
-// Se mantienen las rutas pero agregamos explícitamente las carpetas para evitar el 404
 app.use('/html', express.static(path.join(__dirname, '../frontend/html')));
 app.use('/img', express.static(path.join(__dirname, '../frontend/public/img')));
 app.use('/css', express.static(path.join(__dirname, '../frontend/public/css')));
@@ -48,15 +47,18 @@ app.use(express.static(path.join(__dirname, '../frontend/public')));
 // ======================
 // 📦 Importar rutas API
 // ======================
-const usuarioRoutes = require('./routes/usuarioRoutes'); // ✅ nombre correcto
+const usuarioRoutes = require('./routes/usuarioRoutes');
 const mesaRoutes = require('./routes/mesaRoutes');
-
+const reservaRoutes = require('./routes/reservaRoutes');
+const clienteRoutes = require('./routes/clienteRoutes');
 
 // ======================
 // 🔗 Usar rutas API
 // ======================
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/mesas', mesaRoutes);
+app.use('/api/reservas', reservaRoutes);
+app.use('/api/clientes', clienteRoutes); // ✅ Solo una vez
 
 // ======================
 // 🌐 Rutas del frontend

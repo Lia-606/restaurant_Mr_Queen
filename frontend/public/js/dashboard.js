@@ -25,6 +25,10 @@ async function cargarModulo(modulo) {
         ? '/public/js/adminUsuarios.js'
         : `/public/js/${modulo}.js`;
 
+    // 🔹 NUEVO: Cargar también el CSS del módulo si existe
+    const cssPath = `/public/css/${modulo}.css`;
+    cargarEstilo(cssPath);
+
     // 4️⃣ Si el script ya está cargado, solo ejecutamos su init
     const existingScript = document.querySelector(`script[data-modulo="${modulo}"]`);
     if (existingScript) {
@@ -98,8 +102,31 @@ btnCerrarSesion.addEventListener('click', async () => {
 });
 
 // ================================
-// 🧩 Función auxiliar
+// 🧩 Funciones auxiliares
 // ================================
 function capitalizar(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// 🔹 NUEVO: función para cargar CSS del módulo dinámicamente
+function cargarEstilo(path) {
+  fetch(path, { method: 'HEAD' })
+    .then(res => {
+      if (res.ok) {
+        // Eliminar estilos anteriores del mismo módulo si existen
+        document.querySelectorAll(`link[data-modulo-css]`).forEach(link => link.remove());
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = path + '?v=' + Date.now(); // evitar cache
+        link.dataset.moduloCss = true;
+        document.head.appendChild(link);
+        console.log(`🎨 Estilo "${path}" cargado correctamente.`);
+      } else {
+        console.warn(`⚠️ No se encontró el CSS del módulo (${path}).`);
+      }
+    })
+    .catch(() => {
+      console.warn(`⚠️ Error al intentar cargar CSS: ${path}`);
+    });
 }
