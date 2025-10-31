@@ -1,66 +1,130 @@
 <div class="mesas-module container my-4">
   <h2 class="section-title mb-3">🪑 Gestión de Mesas</h2>
 
-  <!-- FORMULARIO CREAR / EDITAR MESA -->
-  <div class="card mb-4 bg-dark text-light p-3 rounded-4 sombra-suave">
-    <h5 class="mb-3">➕ Crear Mesa</h5>
-    <form id="formAgregarMesa" class="row g-3">
-      <!-- Campo oculto para almacenar el ID cuando editamos -->
-      <input type="hidden" id="mesaIdEditar" value="">
+  <div class="card bg-dark text-light p-3 rounded-4 sombra-suave mb-4">
+    <!-- 🔹 Controles superiores -->
+    <div class="mb-3 d-flex align-items-center flex-wrap">
+      <label for="selectPiso" class="form-label mb-0">Seleccionar piso:</label>
+      <select id="selectPiso" class="form-select campo-oscuro w-auto d-inline-block ms-2">
+        <option value="1">Piso 1</option>
+        <option value="2">Piso 2</option>
+      </select>
 
-      <div class="col-md-2">
-        <input type="number" id="nuevoNumero" class="form-control campo-oscuro" placeholder="Número de mesa" required min="1" />
-      </div>
-      <div class="col-md-2">
-        <input type="number" id="nuevaCapacidad" class="form-control campo-oscuro" placeholder="Capacidad" required min="1" />
-      </div>
-      <div class="col-md-3">
-        <select id="nuevoEstado" class="form-control campo-oscuro">
+      <button id="btnCrearMesaMapa" class="btn btn-sm btn-crear ms-3">➕ Crear mesa en mapa</button>
+
+      <label for="tipoVista" class="form-label ms-3 mb-0">Vista:</label>
+      <select id="tipoVista" class="form-select campo-oscuro w-auto d-inline-block ms-2">
+        <option value="mapa">🗺️ Mapa</option>
+        <option value="tabla">📋 Tabla</option>
+      </select>
+    </div>
+
+    <!-- =============================
+         🗺️  CONTENEDOR VISTA MAPA
+    ============================== -->
+    <div id="mapaMesasContainer"
+         class="position-relative border rounded sombra-suave bg-dark"
+         style="width: 100%; height: 500px; overflow: hidden;">
+      <img id="imagenPiso"
+           src="../public/img/piso1.png"
+           alt="Plano del piso"
+           style="width:100%; height:100%; object-fit: contain;">
+      <div id="mesasMapa"
+           style="position:absolute; top:0; left:0; width:100%; height:100%;"></div>
+
+      <!-- 🟣 PANEL LATERAL DE EDICIÓN -->
+      <div id="editorMesaContainer">
+        <h3 id="editorTitulo">
+          Editar Mesa
+          <button id="btnCerrarEditor">❌</button>
+        </h3>
+
+        <label for="capacidadEditar">Capacidad:</label>
+        <input type="number" id="capacidadEditar" min="1" class="campo-oscuro" />
+
+        <label for="estadoEditar">Estado:</label>
+        <select id="estadoEditar" class="campo-oscuro">
           <option value="Libre">Libre</option>
           <option value="Ocupada">Ocupada</option>
           <option value="Reservada">Reservada</option>
           <option value="Pendiente de pago">Pendiente de pago</option>
           <option value="Cerrada">Cerrada</option>
         </select>
-      </div>
-      <div class="col-md-3">
-        <input type="text" id="nuevaUbicacion" class="form-control campo-oscuro" placeholder="Ubicación (opcional)" />
-      </div>
-      <div class="col-md-2">
-        <button id="btnCrearActualizar" type="submit" class="btn btn-crear w-100">Crear</button>
-      </div>
-    </form>
-    <div id="msgCrearMesa" class="msg text-center mt-2"></div>
-  </div>
 
-  <!-- MENSAJE GLOBAL -->
-  <div id="msgMesas" class="msg text-center mb-3"></div>
+        <div class="botones">
+          <button id="btnGuardarMesa">Actualizar</button>
+          <button id="btnEliminarMesa">Eliminar</button>
+          <button id="btnCancelarMesa">Cancelar</button>
+        </div>
+      </div>
+    </div>
 
-  <!-- TABLA DE MESAS -->
-  <div class="card bg-dark text-light p-3 rounded-4 sombra-suave">
-    <h5 class="mb-3">📋 Mesas</h5>
-    <div class="table-responsive mt-3">
-      <table class="table table-dark table-hover align-middle tabla-mesas">
-        <thead>
-          <tr>
-            <th>Número</th>
-            <th>Capacidad</th>
-            <th>Estado</th>
-            <th>Ubicación</th>
-            <th>Última actualización</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="tablaMesas">
-          <tr><td colspan="6" class="text-center">Cargando...</td></tr>
-        </tbody>
-      </table>
+    <!-- =============================
+         📋  CONTENEDOR VISTA TABLA
+    ============================== -->
+    <div id="tablaMesasContainer" class="mt-4" style="display: none;">
+      <!-- 🔸 FORMULARIO CREAR / EDITAR -->
+      <div class="card mb-4 bg-dark text-light p-3 rounded-4 sombra-suave">
+        <h5 class="mb-3" id="tituloFormMesa">➕ Crear Mesa</h5>
+        <form id="formMesa" class="row g-3">
+          <input type="hidden" id="mesaIdEditar" value="">
+
+          <div class="col-md-2">
+            <input type="number" id="nuevoNumero" class="form-control campo-oscuro" placeholder="Número de mesa" required min="1" />
+          </div>
+          <div class="col-md-2">
+            <input type="number" id="nuevaCapacidad" class="form-control campo-oscuro" placeholder="Capacidad" required min="1" />
+          </div>
+          <div class="col-md-2">
+            <select id="nuevoEstado" class="form-control campo-oscuro">
+              <option value="Libre">Libre</option>
+              <option value="Ocupada">Ocupada</option>
+              <option value="Reservada">Reservada</option>
+              <option value="Pendiente de pago">Pendiente de pago</option>
+              <option value="Cerrada">Cerrada</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <select id="nuevoPiso" class="form-control campo-oscuro">
+              <option value="1">Piso 1</option>
+              <option value="2">Piso 2</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <input type="text" id="nuevaUbicacion" class="form-control campo-oscuro" placeholder="Ubicación (opcional)" />
+          </div>
+          <div class="col-md-1">
+            <button id="btnCrearActualizar" type="submit" class="btn btn-crear w-100">Crear</button>
+          </div>
+        </form>
+        <div id="msgCrearMesa" class="msg text-center mt-2"></div>
+      </div>
+
+      <!-- 🔸 TABLA DE MESAS -->
+      <div class="card bg-dark text-light p-3 rounded-4 sombra-suave">
+        <h5 class="mb-3">📋 Mesas registradas</h5>
+        <div class="table-responsive mt-3">
+          <table class="table table-dark table-hover align-middle tabla-mesas text-center">
+            <thead>
+              <tr>
+                <th>Número</th>
+                <th>Capacidad</th>
+                <th>Estado</th>
+                <th>Piso</th>
+                <th>Ubicación</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaMesasBody">
+              <tr><td colspan="6" class="text-center">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Enlace al CSS propio del módulo -->
+<!-- 🔹 Enlace a CSS y JS -->
 <link rel="stylesheet" href="../public/css/mesas.css" />
-
-<!-- Enlace al JS -->
 <script src="../public/js/mesas.js"></script>
